@@ -20,7 +20,6 @@ import java.util.regex.Pattern
 android {
 
     compileSdkVersion 30
-
     signingConfigs {
         release {
             def apkStoreFile = System.getenv("APK_SIGNING_STORE_FILE")
@@ -51,7 +50,7 @@ android {
         minSdkVersion 24
         //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 28
-
+        multiDexEnabled true
         /**
          * We keep the versionCode and versionName of robot controller applications in sync with
          * the master information published in the AndroidManifest.xml file of the FtcRobotController
@@ -109,7 +108,7 @@ android {
     }
     ndkVersion '21.3.6528147'
 }
-
 repositories {
+    mavenCentral()
 }
 
