@@ -31,7 +31,6 @@ public class AutoGeneral extends LinearOpMode {
             packet = new TelemetryPacket();
             drawing.drawImage(packet.fieldOverlay(),new Pose2d(xCurrent,-yCurrent,zCurrent));
             FtcDashboard.getInstance().sendTelemetryPacket(packet);
-
             general.run();
         }
     }
