@@ -34,7 +34,7 @@ public class DriveTrain implements Subsystem {
     public enum State{
         OFF, DRIVE, AUTO
     }
-    State state = State.OFF;
+    public State state = State.OFF;
 
     public void setState(State state) {
         if(this.state!= state){
@@ -55,7 +55,14 @@ public class DriveTrain implements Subsystem {
         powerArray[2]=(powerVector.getY()-powerVector.getX()-powerVector.getZ())/d;
         powerArray[3]=(powerVector.getY()+powerVector.getX()-powerVector.getZ())/d;
     }
-
+ public void setTargetPosition(Vector vector){
+        xTarget= vector.getX();
+        yTarget = vector.getY();
+        zTarget= vector.getZ();
+ }
+   public boolean hasReachedTarget(double xM, double yM, double zM){
+       return Math.abs(xTarget-xCurrent)<xM && Math.abs(yTarget - yCurrent)<yM && Math.abs(zTarget - Math.toDegrees(zCurrent))<zM;
+   }
     @Override
     public void periodic() {
         switch (state){
@@ -68,6 +75,7 @@ public class DriveTrain implements Subsystem {
                 rightRear.setPower(powerArray[3]);
                 break;
             case AUTO:
+                pinpointDriver.update();
                 xPID.setPID(xP,xI,xD);
                 yPID.setPID(yP,yI,yD);
                 zPID.setPID(zP,zI,zD);
